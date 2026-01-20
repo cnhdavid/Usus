@@ -13,6 +13,18 @@ export interface UserDto {
   createdAt: string;
 }
 
+export interface LoginRequest {
+  email: string;
+  password: string;
+}
+
+export interface LoginResponse {
+  id: number;
+  username: string;
+  email: string;
+  createdAt: string;
+}
+
 export const userApi = {
   async createUser(userData: CreateUserRequest): Promise<UserDto> {
     const response = await fetch(`${API_BASE_URL}/user`, {
@@ -37,6 +49,23 @@ export const userApi = {
     if (!response.ok) {
       const error = await response.json().catch(() => ({ message: 'Failed to fetch user' }));
       throw new Error(error.message || 'Failed to fetch user');
+    }
+
+    return response.json();
+  },
+
+  async login(credentials: LoginRequest): Promise<LoginResponse> {
+    const response = await fetch(`${API_BASE_URL}/user/login`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(credentials),
+    });
+
+    if (!response.ok) {
+      const error = await response.json().catch(() => ({ message: 'Invalid email or password' }));
+      throw new Error(error.message || 'Invalid email or password');
     }
 
     return response.json();

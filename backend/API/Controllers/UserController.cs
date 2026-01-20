@@ -4,6 +4,7 @@ using Usus.API.Core.Entities;
 using Usus.API.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Usus.API.Infrastructure.Interfaces;
+using BCrypt.Net;
 
 namespace Usus.API.API.Controllers;
 
@@ -36,11 +37,31 @@ public class UserController : ControllerBase
     public async Task<ActionResult<UserDto>> CreateUser([FromBody] CreateUserRequest request)
     {
         var user = _mapper.Map<User>(request);
+        user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(request.Password);
         var createdUser = await _userRepository.CreateAsync(user);
         var userDto = _mapper.Map<UserDto>(createdUser);
 
         return CreatedAtAction(nameof(GetUser), new { id = userDto.Id }, userDto);
     }
+
+    [HttpPost("login")]
+    public async Task<ActionResult<LoginResponse>> Login([FromBody] LoginRequest request)
+    {
+        var user = await _userRepository.GetByEmailAsync(request.Email);
+        if (user == null)
+        {
+            return Unauthorized(new { message = "Invalid email or password" });
+        }
+
+        if (!BCrypt.Net.BCrypt.Verify(request.Password, user.PasswordHash))
+        {
+            return Unauthorized(new { message = "Invalid email or password" });
+        }
+
+        var response = _mapper.Map<LoginResponse>(user);
+        return Ok(response);
+    }
+
     [HttpPut("{id}")]
     public async Task<ActionResult<UserDto>> UpdateUser(int id, [FromBody] UpdateUserRequest request)
     {

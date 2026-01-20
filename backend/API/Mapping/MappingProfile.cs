@@ -15,6 +15,8 @@ public class MappingProfile : Profile
         CreateMap<CreateDailyLogRequest, DailyLog>();
         
         CreateMap<User, UserDto>();
-        CreateMap<CreateUserRequest, User>();
+        CreateMap<CreateUserRequest, User>()
+            .ForMember(dest => dest.PasswordHash, opt => opt.Ignore());
+        CreateMap<User, LoginResponse>();
     }
 }
