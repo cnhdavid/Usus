@@ -9,6 +9,41 @@
   }
 }
 
+/* Hide native number input spinners */
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type='number'] { -moz-appearance: textfield; }
+
+/* Dark option backgrounds for selects */
+option {
+  background-color: #18181b;
+  color: #fff;
+}
+
+/* Styled scrollbar — all scrollable areas */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(63, 63, 70, 0.8);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(113, 113, 122, 0.9);
+}
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(63, 63, 70, 0.8) transparent;
+}
+
 @layer utilities {
   .shimmer {
     background: linear-gradient(

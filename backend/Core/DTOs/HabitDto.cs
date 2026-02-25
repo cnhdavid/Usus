@@ -7,6 +7,9 @@ public class HabitDto
     public string Description { get; set; } = string.Empty;
     public string Frequency { get; set; } = "Daily";
     public int TargetCount { get; set; } = 1;
+    public double? TargetValue { get; set; }
+    public string? Unit { get; set; }
+    public string? Category { get; set; }
     public DateTime CreatedAt { get; set; }
     public int UserId { get; set; }
 }
@@ -17,6 +20,9 @@ public class CreateHabitRequest
     public string Description { get; set; } = string.Empty;
     public string Frequency { get; set; } = "Daily";
     public int TargetCount { get; set; } = 1;
+    public double? TargetValue { get; set; }
+    public string? Unit { get; set; }
+    public string? Category { get; set; }
     public int UserId { get; set; }
 }
 
@@ -26,4 +32,7 @@ public class UpdateHabitRequest
     public string? Description { get; set; }
     public string? Frequency { get; set; }
     public int? TargetCount { get; set; }
+    public double? TargetValue { get; set; }
+    public string? Unit { get; set; }
+    public string? Category { get; set; }
 }

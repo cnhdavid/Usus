@@ -15,6 +15,7 @@
     "autoprefixer": "^10.4.24",
     "canvas-confetti": "^1.9.4",
     "framer-motion": "^12.29.2",
+    "lucide-react": "^0.575.0",
     "postcss": "^8.5.6",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",

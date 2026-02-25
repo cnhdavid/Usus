@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { PartyPopper } from 'lucide-react';
 import { ProgressRing } from './ProgressRing';
 import type { Habit, DailyLog } from '../types';
 import { calculateDailyCompletion } from '../utils/stats';
@@ -52,8 +53,8 @@ export const HeroStats = ({ habits, allLogs }: HeroStatsProps) => {
           animate={{ opacity: 1, scale: 1 }}
           className="mt-6 p-4 bg-accent-cyan/10 border border-accent-cyan/30 rounded-xl"
         >
-          <p className="text-accent-cyan font-semibold text-center">
-            🎉 Perfect Day! All habits completed!
+          <p className="text-accent-cyan font-semibold text-center flex items-center justify-center gap-2">
+            <PartyPopper className="w-5 h-5" /> Perfect Day! All habits completed!
           </p>
         </motion.div>
       )}

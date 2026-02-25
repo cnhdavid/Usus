@@ -2,12 +2,12 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { apiClient } from '../api/client';
 import type { CreateHabitRequest, UpdateHabitRequest } from '../types';
 
-export const useHabits = (userId: number = 1) => {
+export const useHabits = () => {
   const queryClient = useQueryClient();
 
   const habitsQuery = useQuery({
-    queryKey: ['habits', userId],
-    queryFn: () => apiClient.habits.getAll(userId),
+    queryKey: ['habits'],
+    queryFn: () => apiClient.habits.getAll(),
   });
 
   const createHabitMutation = useMutation({

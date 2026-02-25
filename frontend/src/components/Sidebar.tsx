@@ -1,10 +1,13 @@
 import { motion } from 'framer-motion';
+import { useAuth } from '../context/AuthContext';
 
 interface SidebarProps {
   onAddHabit: () => void;
 }
 
 export const Sidebar = ({ onAddHabit }: SidebarProps) => {
+  const { user, logout } = useAuth();
+
   return (
     <>
       <aside className="hidden lg:flex lg:flex-col lg:w-64 lg:fixed lg:inset-y-0 bg-card-bg border-r border-card-border">
@@ -53,6 +56,30 @@ export const Sidebar = ({ onAddHabit }: SidebarProps) => {
           >
             + New Habit
           </motion.button>
+
+          {/* User-Info und Logout */}
+          <div className="mt-4 pt-4 border-t border-card-border">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2 min-w-0">
+                <div className="w-8 h-8 bg-accent-cyan/20 rounded-full flex items-center justify-center shrink-0">
+                  <span className="text-accent-cyan text-sm font-bold">
+                    {user?.username?.[0]?.toUpperCase() ?? '?'}
+                  </span>
+                </div>
+                <span className="text-zinc-300 text-sm font-medium truncate">{user?.username}</span>
+              </div>
+              <motion.button
+                whileTap={{ scale: 0.95 }}
+                onClick={logout}
+                title="Log out"
+                className="p-2 text-zinc-500 hover:text-red-400 hover:bg-red-900/20 rounded-lg transition-colors shrink-0"
+              >
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                </svg>
+              </motion.button>
+            </div>
+          </div>
         </div>
       </aside>
 

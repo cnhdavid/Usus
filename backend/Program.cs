@@ -4,6 +4,7 @@ using Usus.API.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
 using Usus.API.Infrastructure.Interfaces;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,14 +22,38 @@ builder.Services.AddScoped<IHabitRepository, HabitRepository>();
 builder.Services.AddScoped<IDailyLogRepository, DailyLogRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.Cookie.Name = "usus_session";
+        options.Cookie.HttpOnly = true;
+        options.Cookie.SameSite = SameSiteMode.Lax;
+        options.Cookie.SecurePolicy = CookieSecurePolicy.None; // HTTP in dev
+        options.ExpireTimeSpan = TimeSpan.FromDays(30);
+        options.SlidingExpiration = true;
+        // Return 401 instead of redirecting to login page
+        options.Events.OnRedirectToLogin = ctx =>
+        {
+            ctx.Response.StatusCode = StatusCodes.Status401Unauthorized;
+            return Task.CompletedTask;
+        };
+        options.Events.OnRedirectToAccessDenied = ctx =>
+        {
+            ctx.Response.StatusCode = StatusCodes.Status403Forbidden;
+            return Task.CompletedTask;
+        };
+    });
+
+builder.Services.AddAuthorizationBuilder();
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
     {
-        policy.AllowAnyOrigin()    // Erlaubt alle localhost Ports und Adressen
-              .AllowAnyMethod()    // Erlaubt GET, POST, etc.
-              .AllowAnyHeader();   // Erlaubt alle Header
-        // .AllowCredentials() wurde entfernt, damit die App startet!
+        policy.WithOrigins("http://localhost:5173", "http://localhost:5174", "http://localhost:5175")
+              .AllowAnyMethod()
+              .AllowAnyHeader()
+              .AllowCredentials(); // Nötig für Cookies
     });
 });
 
@@ -44,8 +69,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseCors("AllowFrontend");
 
+app.UseAuthentication();
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
 
 app.MapControllers();
@@ -54,6 +79,16 @@ using (var scope = app.Services.CreateScope())
 {
     var context = scope.ServiceProvider.GetRequiredService<DataContext>();
     context.Database.Migrate();
+
+    // Seed-User mit ungültigem PasswordHash bereinigen
+    var badUser = context.Users.FirstOrDefault(u => u.Email == "default@usus.app");
+    if (badUser != null && (badUser.PasswordHash == "seed" || badUser.PasswordHash.Length < 20))
+    {
+        var habits = context.Habits.Where(h => h.UserId == badUser.Id).ToList();
+        context.Habits.RemoveRange(habits);
+        context.Users.Remove(badUser);
+        context.SaveChanges();
+    }
 }
 
 app.Run();

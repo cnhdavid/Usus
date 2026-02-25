@@ -9,6 +9,8 @@ public class DailyLog
     [Column(TypeName = "datetime2")]
     public DateTime Date { get; set; } = DateTime.UtcNow.Date;
     public int CompletedCount { get; set; } = 0;
+    /// <summary>Actual measured value for this session (e.g. 32.5 km)</summary>
+    public double? Value { get; set; }
     public string? Notes { get; set; }
     public int HabitId { get; set; }
     public Habit Habit { get; set; } = null!;

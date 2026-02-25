@@ -4,6 +4,9 @@ export interface Habit {
   description: string;
   frequency: string;
   targetCount: number;
+  targetValue?: number;
+  unit?: string;
+  category?: string;
   createdAt: string;
   userId: number;
 }
@@ -13,6 +16,9 @@ export interface CreateHabitRequest {
   description: string;
   frequency: string;
   targetCount: number;
+  targetValue?: number;
+  unit?: string;
+  category?: string;
   userId: number;
 }
 
@@ -21,12 +27,16 @@ export interface UpdateHabitRequest {
   description?: string;
   frequency?: string;
   targetCount?: number;
+  targetValue?: number;
+  unit?: string;
+  category?: string;
 }
 
 export interface DailyLog {
   id: number;
   date: string;
   completedCount: number;
+  value?: number;
   notes?: string;
   habitId: number;
 }
@@ -34,12 +44,14 @@ export interface DailyLog {
 export interface CreateDailyLogRequest {
   date: string;
   completedCount: number;
+  value?: number;
   notes?: string;
   habitId: number;
 }
 
 export interface UpdateDailyLogRequest {
   completedCount?: number;
+  value?: number;
   notes?: string;
 }
 

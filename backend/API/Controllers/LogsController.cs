@@ -87,6 +87,8 @@ public class LogsController : ControllerBase
 
         if (request.CompletedCount.HasValue)
             existingLog.CompletedCount = request.CompletedCount.Value;
+        if (request.Value.HasValue)
+            existingLog.Value = request.Value.Value;
         if (request.Notes != null)
             existingLog.Notes = request.Notes;
 
