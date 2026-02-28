@@ -13,8 +13,11 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddOpenApi();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<DataContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? "Data Source=usus_dev.db";
+if (connectionString.Contains("Data Source") && connectionString.EndsWith(".db"))
+    builder.Services.AddDbContext<DataContext>(options => options.UseSqlite(connectionString));
+else
+    builder.Services.AddDbContext<DataContext>(options => options.UseSqlServer(connectionString));
 
 builder.Services.AddAutoMapper(typeof(Program));
 

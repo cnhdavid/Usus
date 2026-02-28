@@ -13,25 +13,25 @@ namespace Usus.API.Migrations
             migrationBuilder.AddColumn<string>(
                 name: "Category",
                 table: "Habits",
-                type: "nvarchar(max)",
+                type: "TEXT",
                 nullable: true);
 
             migrationBuilder.AddColumn<double>(
                 name: "TargetValue",
                 table: "Habits",
-                type: "float",
+                type: "REAL",
                 nullable: true);
 
             migrationBuilder.AddColumn<string>(
                 name: "Unit",
                 table: "Habits",
-                type: "nvarchar(max)",
+                type: "TEXT",
                 nullable: true);
 
             migrationBuilder.AddColumn<double>(
                 name: "Value",
                 table: "DailyLogs",
-                type: "float",
+                type: "REAL",
                 nullable: true);
         }
 

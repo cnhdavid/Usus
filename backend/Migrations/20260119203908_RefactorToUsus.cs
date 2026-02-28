@@ -13,7 +13,7 @@ namespace Usus.API.Migrations
             migrationBuilder.AddColumn<string>(
                 name: "PasswordHash",
                 table: "Users",
-                type: "nvarchar(max)",
+                type: "TEXT",
                 nullable: false,
                 defaultValue: "");
         }
