@@ -19,7 +19,14 @@ export const PreferencesProvider = ({ children }: { children: ReactNode }) => {
   });
 
   const [theme, setThemeState] = useState<Theme>(() => {
-    return (localStorage.getItem('usus-theme') as Theme) ?? 'dark';
+    const saved = (localStorage.getItem('usus-theme') as Theme) ?? 'dark';
+    // Apply synchronously so the class is set before the first paint
+    if (saved === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+    return saved;
   });
 
   // Apply theme class to <html>
