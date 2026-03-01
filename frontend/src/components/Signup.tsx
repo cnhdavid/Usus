@@ -43,58 +43,58 @@ export const Signup = ({ onSwitchToLogin }: SignupProps) => {
         className="w-full max-w-md"
       >
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-white mb-2">Usus</h1>
-          <p className="text-zinc-400">Build better habits, every day.</p>
+          <h1 className="text-4xl font-bold text-slate-900 dark:text-white mb-2">Usus</h1>
+          <p className="text-slate-500 dark:text-zinc-400">Build better habits, every day.</p>
         </div>
 
         <div className="bg-card-bg border border-card-border rounded-2xl p-8">
-          <h2 className="text-2xl font-bold text-white mb-6">Create your account</h2>
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">Create your account</h2>
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-zinc-300 mb-2">Username</label>
+              <label className="block text-sm font-medium text-slate-600 dark:text-zinc-300 mb-2">Username</label>
               <input
                 type="text"
                 required
                 value={form.username}
                 onChange={(e) => setForm({ ...form, username: e.target.value })}
-                className="w-full px-4 py-3 bg-zinc-900 border border-zinc-700 rounded-xl text-white focus:outline-none focus:border-accent-cyan transition-colors"
+                className="w-full px-4 py-3 bg-slate-100 dark:bg-zinc-900 border border-slate-200 dark:border-zinc-700 rounded-xl text-slate-900 dark:text-white focus:outline-none focus:border-accent-cyan transition-colors"
                 placeholder="yourname"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-zinc-300 mb-2">Email</label>
+              <label className="block text-sm font-medium text-slate-600 dark:text-zinc-300 mb-2">Email</label>
               <input
                 type="email"
                 required
                 value={form.email}
                 onChange={(e) => setForm({ ...form, email: e.target.value })}
-                className="w-full px-4 py-3 bg-zinc-900 border border-zinc-700 rounded-xl text-white focus:outline-none focus:border-accent-cyan transition-colors"
+                className="w-full px-4 py-3 bg-slate-100 dark:bg-zinc-900 border border-slate-200 dark:border-zinc-700 rounded-xl text-slate-900 dark:text-white focus:outline-none focus:border-accent-cyan transition-colors"
                 placeholder="you@example.com"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-zinc-300 mb-2">Password</label>
+              <label className="block text-sm font-medium text-slate-600 dark:text-zinc-300 mb-2">Password</label>
               <input
                 type="password"
                 required
                 value={form.password}
                 onChange={(e) => setForm({ ...form, password: e.target.value })}
-                className="w-full px-4 py-3 bg-zinc-900 border border-zinc-700 rounded-xl text-white focus:outline-none focus:border-accent-cyan transition-colors"
+                className="w-full px-4 py-3 bg-slate-100 dark:bg-zinc-900 border border-slate-200 dark:border-zinc-700 rounded-xl text-slate-900 dark:text-white focus:outline-none focus:border-accent-cyan transition-colors"
                 placeholder="Min. 6 characters"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-zinc-300 mb-2">Confirm Password</label>
+              <label className="block text-sm font-medium text-slate-600 dark:text-zinc-300 mb-2">Confirm Password</label>
               <input
                 type="password"
                 required
                 value={form.confirmPassword}
                 onChange={(e) => setForm({ ...form, confirmPassword: e.target.value })}
-                className="w-full px-4 py-3 bg-zinc-900 border border-zinc-700 rounded-xl text-white focus:outline-none focus:border-accent-cyan transition-colors"
+                className="w-full px-4 py-3 bg-slate-100 dark:bg-zinc-900 border border-slate-200 dark:border-zinc-700 rounded-xl text-slate-900 dark:text-white focus:outline-none focus:border-accent-cyan transition-colors"
                 placeholder="••••••••"
               />
             </div>
@@ -119,7 +119,7 @@ export const Signup = ({ onSwitchToLogin }: SignupProps) => {
             </motion.button>
           </form>
 
-          <p className="mt-6 text-center text-zinc-500 text-sm">
+          <p className="mt-6 text-center text-slate-400 dark:text-zinc-500 text-sm">
             Already have an account?{' '}
             <button
               onClick={onSwitchToLogin}

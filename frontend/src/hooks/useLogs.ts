@@ -58,19 +58,14 @@ export const useLogs = (habitId?: number) => {
     );
 
     if (existingLog) {
-      if (existingLog.completedCount >= habit.targetCount) {
-        await deleteLogMutation.mutateAsync(existingLog.id);
-      } else {
-        await updateLogMutation.mutateAsync({
-          id: existingLog.id,
-          data: { completedCount: existingLog.completedCount + 1 }
-        });
-      }
+      // Already logged for this day — unmark it
+      await deleteLogMutation.mutateAsync(existingLog.id);
     } else {
+      // Mark as fully complete for this day
       await createLogMutation.mutateAsync({
         habitId: habit.id,
         date: dateStr,
-        completedCount: 1,
+        completedCount: habit.targetCount,
       });
     }
   };

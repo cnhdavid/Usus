@@ -43,6 +43,24 @@ export const getTodayLog = (logs: DailyLog[], habitId: number): DailyLog | undef
   );
 };
 
+export const getLogForDate = (logs: DailyLog[], habitId: number, date: Date): DailyLog | undefined => {
+  const dateStr = date.toISOString().split('T')[0];
+  return logs.find(log =>
+    log.habitId === habitId && log.date.split('T')[0] === dateStr
+  );
+};
+
+export const calculateCompletionForDate = (habits: Habit[], allLogs: DailyLog[], date: Date): number => {
+  if (habits.length === 0) return 0;
+  const dateStr = date.toISOString().split('T')[0];
+  const dateLogs = allLogs.filter(log => log.date.split('T')[0] === dateStr);
+  const completedCount = habits.filter(habit => {
+    const log = dateLogs.find(l => l.habitId === habit.id);
+    return log && log.completedCount >= habit.targetCount;
+  }).length;
+  return Math.round((completedCount / habits.length) * 100);
+};
+
 export const getRecentLogs = (logs: DailyLog[], days: number = 14): DailyLog[] => {
   const cutoffDate = new Date();
   cutoffDate.setDate(cutoffDate.getDate() - days);

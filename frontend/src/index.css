@@ -2,12 +2,34 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ── Theme tokens (light = default, dark class for dark mode) ──── */
+:root {
+  --color-deep-black: #f8fafc;
+  --color-card-bg: #ffffff;
+  --color-card-border: rgba(203, 213, 225, 0.8);
+  color-scheme: light;
+}
+
+html.dark {
+  --color-deep-black: #000000;
+  --color-card-bg: #09090b;
+  --color-card-border: rgba(39, 39, 42, 0.5);
+  color-scheme: dark;
+}
+
+/* ── Base ─────────────────────────────────────────────────── */
 @layer base {
   body {
-    @apply bg-deep-black text-white antialiased;
+    background-color: var(--color-deep-black);
+    @apply text-slate-900 dark:text-white antialiased;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   }
 }
+
+/* Dark-mode scrollbar */
+html.dark ::-webkit-scrollbar-thumb { background: rgba(63, 63, 70, 0.8); border-radius: 9999px; }
+html.dark ::-webkit-scrollbar-thumb:hover { background: rgba(113, 113, 122, 0.9); }
+html.dark * { scrollbar-color: rgba(63, 63, 70, 0.8) transparent; }
 
 /* Hide native number input spinners */
 input[type='number']::-webkit-inner-spin-button,
@@ -17,8 +39,12 @@ input[type='number']::-webkit-outer-spin-button {
 }
 input[type='number'] { -moz-appearance: textfield; }
 
-/* Dark option backgrounds for selects */
+/* Select option backgrounds */
 option {
+  background-color: #ffffff;
+  color: #0f172a;
+}
+html.dark option {
   background-color: #18181b;
   color: #fff;
 }
@@ -32,16 +58,16 @@ option {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(63, 63, 70, 0.8);
+  background: rgba(203, 213, 225, 0.8);
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(113, 113, 122, 0.9);
+  background: rgba(148, 163, 184, 0.9);
 }
 /* Firefox */
 * {
   scrollbar-width: thin;
-  scrollbar-color: rgba(63, 63, 70, 0.8) transparent;
+  scrollbar-color: rgba(203, 213, 225, 0.8) transparent;
 }
 
 @layer utilities {

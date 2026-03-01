@@ -138,7 +138,7 @@ export const AddHabitModal = ({ isOpen, onClose, onSubmit }: AddHabitModalProps)
             <div className="bg-card-bg border border-card-border rounded-2xl max-w-lg w-full flex flex-col max-h-[90vh]">
               {/* Sticky header */}
               <div className="px-8 pt-8 pb-4 border-b border-card-border shrink-0">
-                <h2 className="text-2xl font-bold text-white">Create New Habit</h2>
+                <h2 className="text-2xl font-bold text-slate-900 dark:text-white">Create New Habit</h2>
               </div>
 
               {/* Scrollable fields */}
@@ -147,24 +147,24 @@ export const AddHabitModal = ({ isOpen, onClose, onSubmit }: AddHabitModalProps)
               <form id="add-habit-form" onSubmit={handleSubmit} className="space-y-5">
                 {/* Name */}
                 <div>
-                  <label className="block text-sm font-medium text-zinc-300 mb-2">Habit Name *</label>
+                  <label className="block text-sm font-medium text-slate-600 dark:text-zinc-300 mb-2">Habit Name *</label>
                   <input
                     type="text"
                     required
                     value={formData.name}
                     onChange={e => set({ name: e.target.value })}
-                    className="w-full px-4 py-3 bg-zinc-900 border border-zinc-700 rounded-xl text-white focus:outline-none focus:border-accent-cyan transition-colors"
+                    className="w-full px-4 py-3 bg-slate-100 dark:bg-zinc-900 border border-slate-200 dark:border-zinc-700 rounded-xl text-slate-900 dark:text-white focus:outline-none focus:border-accent-cyan transition-colors"
                     placeholder="e.g., Cycling"
                   />
                 </div>
 
                 {/* Description */}
                 <div>
-                  <label className="block text-sm font-medium text-zinc-300 mb-2">Description</label>
+                  <label className="block text-sm font-medium text-slate-600 dark:text-zinc-300 mb-2">Description</label>
                   <textarea
                     value={formData.description}
                     onChange={e => set({ description: e.target.value })}
-                    className="w-full px-4 py-3 bg-zinc-900 border border-zinc-700 rounded-xl text-white focus:outline-none focus:border-accent-cyan transition-colors resize-none"
+                    className="w-full px-4 py-3 bg-slate-100 dark:bg-zinc-900 border border-slate-200 dark:border-zinc-700 rounded-xl text-slate-900 dark:text-white focus:outline-none focus:border-accent-cyan transition-colors resize-none"
                     placeholder="Optional notes…"
                     rows={2}
                   />
@@ -172,7 +172,7 @@ export const AddHabitModal = ({ isOpen, onClose, onSubmit }: AddHabitModalProps)
 
                 {/* Category */}
                 <div>
-                  <label className="block text-sm font-medium text-zinc-300 mb-2">Category</label>
+                  <label className="block text-sm font-medium text-slate-600 dark:text-zinc-300 mb-2">Category</label>
                   <div className="flex flex-wrap gap-2">
                     {CATEGORIES.map(c => (
                       <button
@@ -182,7 +182,7 @@ export const AddHabitModal = ({ isOpen, onClose, onSubmit }: AddHabitModalProps)
                         className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
                           formData.category === c.value
                             ? 'bg-accent-cyan text-black'
-                            : 'bg-zinc-800 text-zinc-300 hover:bg-zinc-700'
+                            : 'bg-slate-200 dark:bg-zinc-800 text-slate-600 dark:text-zinc-300 hover:bg-slate-300 dark:hover:bg-zinc-700'
                         }`}
                       >
                         <c.Icon className="w-3.5 h-3.5" />
@@ -194,7 +194,7 @@ export const AddHabitModal = ({ isOpen, onClose, onSubmit }: AddHabitModalProps)
 
                 {/* Schedule */}
                 <div>
-                  <label className="block text-sm font-medium text-zinc-300 mb-2">Schedule</label>
+                  <label className="block text-sm font-medium text-slate-600 dark:text-zinc-300 mb-2">Schedule</label>
 
                   {/* Quick-select shortcuts */}
                   <div className="flex gap-2 mb-3">
@@ -210,7 +210,7 @@ export const AddHabitModal = ({ isOpen, onClose, onSubmit }: AddHabitModalProps)
                         className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
                           JSON.stringify(sortedSelected) === JSON.stringify(days)
                             ? 'bg-accent-cyan text-black'
-                            : 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700'
+                            : 'bg-slate-200 dark:bg-zinc-800 text-slate-500 dark:text-zinc-400 hover:bg-slate-300 dark:hover:bg-zinc-700'
                         }`}
                       >
                         {label}
@@ -228,7 +228,7 @@ export const AddHabitModal = ({ isOpen, onClose, onSubmit }: AddHabitModalProps)
                         className={`flex-1 py-2.5 rounded-xl text-sm font-bold transition-all ${
                           formData.selectedDays.includes(key)
                             ? 'bg-accent-cyan text-black shadow-glow-cyan'
-                            : 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700'
+                            : 'bg-slate-200 dark:bg-zinc-800 text-slate-500 dark:text-zinc-400 hover:bg-slate-300 dark:hover:bg-zinc-700'
                         }`}
                         title={key}
                       >
@@ -243,27 +243,27 @@ export const AddHabitModal = ({ isOpen, onClose, onSubmit }: AddHabitModalProps)
 
                   {/* Times per day */}
                   <div className="mt-3 flex items-center gap-3">
-                    <label className="text-sm text-zinc-400 whitespace-nowrap">Times per session day</label>
-                    <div className="flex items-center bg-zinc-900 border border-zinc-700 rounded-xl overflow-hidden">
+                    <label className="text-sm text-slate-500 dark:text-zinc-400 whitespace-nowrap">Times per session day</label>
+                    <div className="flex items-center bg-slate-100 dark:bg-zinc-900 border border-slate-200 dark:border-zinc-700 rounded-xl overflow-hidden">
                       <button
                         type="button"
                         onClick={() => set({ timesPerDay: Math.max(1, formData.timesPerDay - 1) })}
-                        className="px-3 py-2 text-zinc-400 hover:text-white hover:bg-zinc-800 transition-colors"
+                        className="px-3 py-2 text-slate-500 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-zinc-800 transition-colors"
                       >
                         <Minus className="w-3.5 h-3.5" />
                       </button>
-                      <span className="w-10 text-center text-white font-medium text-sm select-none">
+                      <span className="w-10 text-center text-slate-900 dark:text-white font-medium text-sm select-none">
                         {formData.timesPerDay}
                       </span>
                       <button
                         type="button"
                         onClick={() => set({ timesPerDay: Math.min(20, formData.timesPerDay + 1) })}
-                        className="px-3 py-2 text-zinc-400 hover:text-white hover:bg-zinc-800 transition-colors"
+                        className="px-3 py-2 text-slate-500 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-zinc-800 transition-colors"
                       >
                         <Plus className="w-3.5 h-3.5" />
                       </button>
                     </div>
-                    <span className="text-xs text-zinc-500">
+                    <span className="text-xs text-slate-400 dark:text-zinc-500">
                       → {sortedSelected.length} day{sortedSelected.length !== 1 ? 's' : ''}/week · {derivedTargetCount}× total
                     </span>
                   </div>
@@ -271,23 +271,23 @@ export const AddHabitModal = ({ isOpen, onClose, onSubmit }: AddHabitModalProps)
 
                 {/* Measurement */}
                 <div>
-                  <label className="block text-sm font-medium text-zinc-300 mb-2">
+                  <label className="block text-sm font-medium text-slate-600 dark:text-zinc-300 mb-2">
                     Measurement unit
-                    <span className="ml-2 text-xs text-zinc-500 font-normal">optional — track km, reps, pages…</span>
+                    <span className="ml-2 text-xs text-slate-400 dark:text-zinc-500 font-normal">optional — track km, reps, pages…</span>
                   </label>
                   <div ref={unitRef} className="relative">
                     {/* Trigger button */}
                     <button
                       type="button"
                       onClick={() => setUnitOpen(o => !o)}
-                      className={`w-full flex items-center justify-between px-4 py-3 bg-zinc-900 border rounded-xl text-white transition-colors ${
-                        unitOpen ? 'border-accent-cyan' : 'border-zinc-700 hover:border-zinc-600'
+                      className={`w-full flex items-center justify-between px-4 py-3 bg-slate-100 dark:bg-zinc-900 border rounded-xl text-slate-900 dark:text-white transition-colors ${
+                        unitOpen ? 'border-accent-cyan' : 'border-slate-200 dark:border-zinc-700 hover:border-zinc-600'
                       }`}
                     >
-                      <span className={formData.unit === '' ? 'text-zinc-500' : 'text-white'}>
+                      <span className={formData.unit === '' ? 'text-slate-400 dark:text-zinc-500' : 'text-slate-900 dark:text-white'}>
                         {UNITS.find(u => u.value === formData.unit)?.label ?? 'No measurement'}
                       </span>
-                      <ChevronDown className={`w-4 h-4 text-zinc-500 transition-transform ${unitOpen ? 'rotate-180' : ''}`} />
+                      <ChevronDown className={`w-4 h-4 text-slate-400 dark:text-zinc-500 transition-transform ${unitOpen ? 'rotate-180' : ''}`} />
                     </button>
 
                     {/* Dropdown panel */}
@@ -298,7 +298,7 @@ export const AddHabitModal = ({ isOpen, onClose, onSubmit }: AddHabitModalProps)
                           animate={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0, y: -6 }}
                           transition={{ duration: 0.15 }}
-                          className="absolute z-10 mt-1 w-full bg-zinc-900 border border-zinc-700 rounded-xl overflow-hidden shadow-xl max-h-56 overflow-y-auto"
+                          className="absolute z-10 mt-1 w-full bg-slate-100 dark:bg-zinc-900 border border-slate-200 dark:border-zinc-700 rounded-xl overflow-hidden shadow-xl max-h-56 overflow-y-auto"
                         >
                           {UNITS.map(u => (
                             <li key={u.value}>
@@ -308,7 +308,7 @@ export const AddHabitModal = ({ isOpen, onClose, onSubmit }: AddHabitModalProps)
                                 className={`w-full flex items-center justify-between px-4 py-2.5 text-sm transition-colors ${
                                   formData.unit === u.value
                                     ? 'bg-accent-cyan/10 text-accent-cyan'
-                                    : 'text-zinc-300 hover:bg-zinc-800 hover:text-white'
+                                    : 'text-slate-600 dark:text-zinc-300 hover:bg-slate-200 dark:hover:bg-zinc-800 hover:text-slate-900 dark:hover:text-white'
                                 }`}
                               >
                                 {u.label}
@@ -325,12 +325,12 @@ export const AddHabitModal = ({ isOpen, onClose, onSubmit }: AddHabitModalProps)
                 {/* Custom unit label */}
                 {formData.unit === 'custom' && (
                   <motion.div initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }}>
-                    <label className="block text-sm font-medium text-zinc-300 mb-2">Custom unit name</label>
+                    <label className="block text-sm font-medium text-slate-600 dark:text-zinc-300 mb-2">Custom unit name</label>
                     <input
                       type="text"
                       value={formData.customUnit}
                       onChange={e => set({ customUnit: e.target.value })}
-                      className="w-full px-4 py-3 bg-zinc-900 border border-zinc-700 rounded-xl text-white focus:outline-none focus:border-accent-cyan transition-colors"
+                      className="w-full px-4 py-3 bg-slate-100 dark:bg-zinc-900 border border-slate-200 dark:border-zinc-700 rounded-xl text-slate-900 dark:text-white focus:outline-none focus:border-accent-cyan transition-colors"
                       placeholder="e.g., chapters, pushups…"
                     />
                   </motion.div>
@@ -339,9 +339,9 @@ export const AddHabitModal = ({ isOpen, onClose, onSubmit }: AddHabitModalProps)
                 {/* Target value per session */}
                 {showMeasurement && (
                   <motion.div initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }}>
-                    <label className="block text-sm font-medium text-zinc-300 mb-2">
+                    <label className="block text-sm font-medium text-slate-600 dark:text-zinc-300 mb-2">
                       Target per session
-                      <span className="ml-2 text-xs text-zinc-500 font-normal">optional</span>
+                      <span className="ml-2 text-xs text-slate-400 dark:text-zinc-500 font-normal">optional</span>
                     </label>
                     <div className="flex items-center gap-3">
                       <input
@@ -350,15 +350,15 @@ export const AddHabitModal = ({ isOpen, onClose, onSubmit }: AddHabitModalProps)
                         step="any"
                         value={formData.targetValue}
                         onChange={e => set({ targetValue: e.target.value })}
-                        className="flex-1 px-4 py-3 bg-zinc-900 border border-zinc-700 rounded-xl text-white focus:outline-none focus:border-accent-cyan transition-colors"
+                        className="flex-1 px-4 py-3 bg-slate-100 dark:bg-zinc-900 border border-slate-200 dark:border-zinc-700 rounded-xl text-slate-900 dark:text-white focus:outline-none focus:border-accent-cyan transition-colors"
                         placeholder="e.g., 30"
                       />
-                      <span className="px-3 py-3 bg-zinc-800 rounded-xl text-zinc-300 text-sm font-medium min-w-[60px] text-center">
+                      <span className="px-3 py-3 bg-slate-200 dark:bg-zinc-800 rounded-xl text-slate-600 dark:text-zinc-300 text-sm font-medium min-w-[60px] text-center">
                         {effectiveUnit || '–'}
                       </span>
                     </div>
                     {formData.targetValue !== '' && effectiveUnit && (
-                      <p className="mt-1.5 text-xs text-zinc-500">
+                      <p className="mt-1.5 text-xs text-slate-400 dark:text-zinc-500">
                         Goal: {sortedSelected.length} day{sortedSelected.length !== 1 ? 's' : ''}/week
                         {` · ${formData.targetValue} ${effectiveUnit} per session`}
                       </p>
@@ -374,7 +374,7 @@ export const AddHabitModal = ({ isOpen, onClose, onSubmit }: AddHabitModalProps)
                 <button
                   type="button"
                   onClick={onClose}
-                  className="flex-1 py-3 bg-zinc-800 hover:bg-zinc-700 text-white rounded-xl font-semibold transition-colors"
+                  className="flex-1 py-3 bg-slate-200 dark:bg-zinc-800 hover:bg-slate-300 dark:hover:bg-zinc-700 text-slate-900 dark:text-white rounded-xl font-semibold transition-colors"
                 >
                   Cancel
                 </button>

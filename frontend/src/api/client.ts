@@ -11,7 +11,7 @@ import type {
   LoginResponse,
 } from '../types';
 
-const API_BASE_URL = 'http://localhost:5112/api';
+const API_BASE_URL = '/api';
 
 class ApiClient {
   private baseUrl: string;

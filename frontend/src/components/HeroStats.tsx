@@ -2,27 +2,32 @@ import { motion } from 'framer-motion';
 import { PartyPopper } from 'lucide-react';
 import { ProgressRing } from './ProgressRing';
 import type { Habit, DailyLog } from '../types';
-import { calculateDailyCompletion } from '../utils/stats';
+import { calculateCompletionForDate } from '../utils/stats';
 
 interface HeroStatsProps {
   habits: Habit[];
   allLogs: DailyLog[];
+  selectedDate: Date;
 }
 
-export const HeroStats = ({ habits, allLogs }: HeroStatsProps) => {
-  const dailyCompletion = calculateDailyCompletion(habits, allLogs);
-  
-  const today = new Date().toLocaleDateString('en-US', { 
-    weekday: 'long', 
-    month: 'long', 
-    day: 'numeric' 
-  });
+export const HeroStats = ({ habits, allLogs, selectedDate }: HeroStatsProps) => {
+  const dailyCompletion = calculateCompletionForDate(habits, allLogs, selectedDate);
 
-  const completedToday = habits.filter(habit => {
-    const todayStr = new Date().toISOString().split('T')[0];
-    const log = allLogs.find(l => 
-      l.habitId === habit.id && 
-      l.date.split('T')[0] === todayStr
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const sel = new Date(selectedDate);
+  sel.setHours(0, 0, 0, 0);
+  const isToday = sel.getTime() === today.getTime();
+
+  const dateLabel = isToday
+    ? selectedDate.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' }) + ' (Today)'
+    : selectedDate.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+
+  const completedOnDate = habits.filter(habit => {
+    const dateStr = selectedDate.toISOString().split('T')[0];
+    const log = allLogs.find(l =>
+      l.habitId === habit.id &&
+      l.date.split('T')[0] === dateStr
     );
     return log && log.completedCount >= habit.targetCount;
   }).length;
@@ -35,10 +40,10 @@ export const HeroStats = ({ habits, allLogs }: HeroStatsProps) => {
     >
       <div className="flex flex-col md:flex-row items-center justify-between gap-8">
         <div className="flex-1 space-y-2">
-          <p className="text-zinc-400 text-sm font-medium">{today}</p>
-          <h1 className="text-4xl font-bold text-white">Daily Progress</h1>
-          <p className="text-zinc-300 text-lg">
-            {completedToday} of {habits.length} habits completed
+          <p className="text-slate-500 dark:text-zinc-400 text-sm font-medium">{dateLabel}</p>
+          <h1 className="text-4xl font-bold text-slate-900 dark:text-white">{isToday ? 'Daily Progress' : 'Day Progress'}</h1>
+          <p className="text-slate-600 dark:text-zinc-300 text-lg">
+            {completedOnDate} of {habits.length} habits completed
           </p>
         </div>
         

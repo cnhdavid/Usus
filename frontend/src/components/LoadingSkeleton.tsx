@@ -8,12 +8,12 @@ export const LoadingSkeleton = () => {
         >
           <div className="flex items-center justify-between mb-4">
             <div className="space-y-2 flex-1">
-              <div className="h-6 bg-zinc-800 rounded w-1/3 shimmer"></div>
-              <div className="h-4 bg-zinc-800 rounded w-1/4 shimmer"></div>
+              <div className="h-6 bg-slate-200 dark:bg-zinc-800 rounded w-1/3 shimmer"></div>
+              <div className="h-4 bg-slate-200 dark:bg-zinc-800 rounded w-1/4 shimmer"></div>
             </div>
-            <div className="h-12 w-12 bg-zinc-800 rounded-full shimmer"></div>
+            <div className="h-12 w-12 bg-slate-200 dark:bg-zinc-800 rounded-full shimmer"></div>
           </div>
-          <div className="h-12 bg-zinc-800 rounded-xl shimmer"></div>
+          <div className="h-12 bg-slate-200 dark:bg-zinc-800 rounded-xl shimmer"></div>
         </div>
       ))}
     </div>

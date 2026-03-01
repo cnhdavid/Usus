@@ -4,12 +4,13 @@ export default {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
+  darkMode: 'class',
   theme: {
     extend: {
       colors: {
-        'deep-black': '#000000',
-        'card-bg': '#09090b',
-        'card-border': 'rgba(39, 39, 42, 0.5)',
+        'deep-black': 'var(--color-deep-black)',
+        'card-bg': 'var(--color-card-bg)',
+        'card-border': 'var(--color-card-border)',
         'accent-cyan': '#22d3ee',
       },
       backdropBlur: {

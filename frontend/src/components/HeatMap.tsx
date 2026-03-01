@@ -34,7 +34,7 @@ export const HeatMap = ({ logs, days = 14, targetCount }: HeatMapProps) => {
       case 3: return 'bg-accent-cyan shadow-glow-cyan';
       case 2: return 'bg-cyan-600';
       case 1: return 'bg-cyan-800';
-      default: return 'bg-zinc-800';
+      default: return 'bg-slate-200 dark:bg-zinc-800';
     }
   };
 

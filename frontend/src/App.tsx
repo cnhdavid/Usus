@@ -1,8 +1,43 @@
 import { useState } from 'react';
 import { Dashboard } from './components/Dashboard';
+import { StatsPage } from './components/StatsPage';
+import { SettingsPage } from './components/SettingsPage';
+import { Sidebar } from './components/Sidebar';
 import { Login } from './components/Login';
 import { Signup } from './components/Signup';
 import { useAuth } from './context/AuthContext';
+import { AddHabitModal } from './components/AddHabitModal';
+import { useHabits } from './hooks/useHabits';
+import type { Page } from './components/Sidebar';
+
+function AppShell() {
+  const [page, setPage] = useState<Page>('dashboard');
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const { createHabit } = useHabits();
+
+  return (
+    <>
+      {page === 'dashboard' && <Dashboard onNavigate={setPage} />}
+      {page === 'stats' && (
+        <>
+          <Sidebar onAddHabit={() => setIsAddModalOpen(true)} activePage={page} onNavigate={setPage} />
+          <StatsPage />
+        </>
+      )}
+      {page === 'settings' && (
+        <>
+          <Sidebar onAddHabit={() => setIsAddModalOpen(true)} activePage={page} onNavigate={setPage} />
+          <SettingsPage />
+        </>
+      )}
+      <AddHabitModal
+        isOpen={isAddModalOpen}
+        onClose={() => setIsAddModalOpen(false)}
+        onSubmit={createHabit}
+      />
+    </>
+  );
+}
 
 function App() {
   const { user, isLoading } = useAuth();
@@ -22,7 +57,7 @@ function App() {
       : <Signup onSwitchToLogin={() => setView('login')} />;
   }
 
-  return <Dashboard />;
+  return <AppShell />;
 }
 
 export default App;
