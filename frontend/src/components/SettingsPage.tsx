@@ -45,13 +45,70 @@ export const SettingsPage = () => {
             <p className="text-slate-500 dark:text-zinc-400 mt-1">{t.settings.preferencesDesc}</p>
           </motion.div>
 
-          {/* Appearance */}
+          {/* Profile */}
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.05 }}
           >
-            <Section title={t.settings.appearance}>
+            <Section title={t.settings.profile}>
+              {/* Avatar card */}
+              <div className="flex items-center gap-4">
+                <div className="w-16 h-16 bg-accent-cyan/20 rounded-full flex items-center justify-center shrink-0 ring-2 ring-accent-cyan/40">
+                  <span className="text-accent-cyan text-2xl font-bold">
+                    {user?.username?.[0]?.toUpperCase() ?? '?'}
+                  </span>
+                </div>
+                <div>
+                  <p className="text-slate-900 dark:text-white font-semibold text-xl">{user?.username}</p>
+                  <p className="text-slate-500 dark:text-zinc-400 text-sm">{user?.email}</p>
+                </div>
+              </div>
+
+              <div className="border-t border-card-border pt-4 space-y-3">
+                <Row label={t.settings.username}>
+                  <span className="text-slate-600 dark:text-zinc-300 text-sm bg-slate-200 dark:bg-zinc-800 px-3 py-1.5 rounded-lg">
+                    {user?.username}
+                  </span>
+                </Row>
+
+                <Row label={t.settings.email}>
+                  <span className="text-slate-600 dark:text-zinc-300 text-sm bg-slate-200 dark:bg-zinc-800 px-3 py-1.5 rounded-lg">
+                    {user?.email}
+                  </span>
+                </Row>
+
+                {user?.createdAt && (
+                  <Row label={t.settings.memberSince}>
+                    <span className="text-slate-500 dark:text-zinc-400 text-sm">
+                      {new Date(user.createdAt).toLocaleDateString(language === 'de' ? 'de-DE' : 'en-US', {
+                        year: 'numeric', month: 'long', day: 'numeric',
+                      })}
+                    </span>
+                  </Row>
+                )}
+              </div>
+
+              <div className="pt-2 border-t border-card-border">
+                <motion.button
+                  whileTap={{ scale: 0.97 }}
+                  onClick={logout}
+                  className="flex items-center gap-2 px-5 py-2.5 bg-red-900/20 hover:bg-red-900/40 border border-red-900/30 text-red-400 hover:text-red-300 rounded-xl text-sm font-medium transition-all"
+                >
+                  <LogOut className="w-4 h-4" />
+                  {t.settings.logout}
+                </motion.button>
+              </div>
+            </Section>
+          </motion.div>
+
+          {/* Preferences */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+          >
+            <Section title={t.settings.preferences}>
               <Row label={t.settings.theme}>
                 <div className="flex rounded-xl overflow-hidden border border-card-border">
                   <button
@@ -78,86 +135,25 @@ export const SettingsPage = () => {
                   </button>
                 </div>
               </Row>
-            </Section>
-          </motion.div>
 
-          {/* Language */}
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-          >
-            <Section title={t.settings.language}>
-              <Row label={t.settings.language} description={t.settings.languageDesc}>
-                <div className="flex gap-2">
-                  {LANGUAGES.map(lang => (
-                    <button
-                      key={lang.code}
-                      onClick={() => setLanguage(lang.code)}
-                      className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium border transition-all ${
-                        language === lang.code
-                          ? 'bg-accent-cyan text-black border-accent-cyan'
-                          : 'bg-slate-200 dark:bg-zinc-800 text-slate-500 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-white border-slate-200 dark:border-zinc-700'
-                      }`}
-                    >
-                      {lang.name}
-                    </button>
-                  ))}
-                </div>
-              </Row>
-            </Section>
-          </motion.div>
-
-          {/* Account */}
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.15 }}
-          >
-            <Section title={t.settings.account}>
-              <div className="flex items-center gap-4 pb-4 border-b border-card-border">
-                <div className="w-14 h-14 bg-accent-cyan/20 rounded-full flex items-center justify-center shrink-0">
-                  <span className="text-accent-cyan text-xl font-bold">
-                    {user?.username?.[0]?.toUpperCase() ?? '?'}
-                  </span>
-                </div>
-                <div>
-                  <p className="text-slate-900 dark:text-white font-semibold text-lg">{user?.username}</p>
-                  <p className="text-slate-500 dark:text-zinc-400 text-sm">{user?.email}</p>
-                </div>
-              </div>
-
-              <Row label={t.settings.username}>
-                <span className="text-slate-600 dark:text-zinc-300 text-sm bg-slate-200 dark:bg-zinc-800 px-3 py-1.5 rounded-lg">
-                  {user?.username}
-                </span>
-              </Row>
-
-              <Row label={t.settings.email}>
-                <span className="text-slate-600 dark:text-zinc-300 text-sm bg-slate-200 dark:bg-zinc-800 px-3 py-1.5 rounded-lg">
-                  {user?.email}
-                </span>
-              </Row>
-
-              {user?.createdAt && (
-                <Row label={t.settings.memberSince}>
-                  <span className="text-slate-500 dark:text-zinc-400 text-sm">
-                    {new Date(user.createdAt).toLocaleDateString(language === 'de' ? 'de-DE' : 'en-US', {
-                      year: 'numeric', month: 'long', day: 'numeric',
-                    })}
-                  </span>
+              <div className="border-t border-card-border pt-4">
+                <Row label={t.settings.language} description={t.settings.languageDesc}>
+                  <div className="flex gap-2">
+                    {LANGUAGES.map(lang => (
+                      <button
+                        key={lang.code}
+                        onClick={() => setLanguage(lang.code)}
+                        className={`px-4 py-2 rounded-xl text-sm font-medium border transition-all ${
+                          language === lang.code
+                            ? 'bg-accent-cyan text-black border-accent-cyan'
+                            : 'bg-slate-200 dark:bg-zinc-800 text-slate-500 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-white border-slate-200 dark:border-zinc-700'
+                        }`}
+                      >
+                        {lang.name}
+                      </button>
+                    ))}
+                  </div>
                 </Row>
-              )}
-
-              <div className="pt-2 border-t border-card-border">
-                <motion.button
-                  whileTap={{ scale: 0.97 }}
-                  onClick={logout}
-                  className="flex items-center gap-2 px-5 py-2.5 bg-red-900/20 hover:bg-red-900/40 border border-red-900/30 text-red-400 hover:text-red-300 rounded-xl text-sm font-medium transition-all"
-                >
-                  <LogOut className="w-4 h-4" />
-                  {t.settings.logout}
-                </motion.button>
               </div>
             </Section>
           </motion.div>
