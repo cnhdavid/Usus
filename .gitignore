@@ -30,6 +30,10 @@ bld/
 [Ll]og/
 [Ll]ogs/
 
+#mobile (React Native)
+mobile/node_modules/
+mobile/dist/
+
 # Visual Studio
 .vs/
 *.suo
