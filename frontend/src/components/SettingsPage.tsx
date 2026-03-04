@@ -1,7 +1,6 @@
 import { motion } from 'framer-motion';
-import { Sun, Moon, LogOut } from 'lucide-react';
+import { Moon, Sun } from 'lucide-react';
 import { usePreferences } from '../context/PreferencesContext';
-import { useAuth } from '../context/AuthContext';
 import type { Language } from '../i18n/translations';
 
 const Section = ({ title, children }: { title: string; children: React.ReactNode }) => (
@@ -27,7 +26,6 @@ const Row = ({ label, description, children }: { label: string; description?: st
 
 export const SettingsPage = () => {
   const { t, theme, setTheme, language, setLanguage } = usePreferences();
-  const { user, logout } = useAuth();
 
   const LANGUAGES: { code: Language; name: string }[] = [
     { code: 'en', name: 'English' },
@@ -43,63 +41,6 @@ export const SettingsPage = () => {
           <motion.div initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }}>
             <h1 className="text-3xl font-bold text-slate-900 dark:text-white">{t.settings.title}</h1>
             <p className="text-slate-500 dark:text-zinc-400 mt-1">{t.settings.preferencesDesc}</p>
-          </motion.div>
-
-          {/* Profile */}
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.05 }}
-          >
-            <Section title={t.settings.profile}>
-              {/* Avatar card */}
-              <div className="flex items-center gap-4">
-                <div className="w-16 h-16 bg-accent-cyan/20 rounded-full flex items-center justify-center shrink-0 ring-2 ring-accent-cyan/40">
-                  <span className="text-accent-cyan text-2xl font-bold">
-                    {user?.username?.[0]?.toUpperCase() ?? '?'}
-                  </span>
-                </div>
-                <div>
-                  <p className="text-slate-900 dark:text-white font-semibold text-xl">{user?.username}</p>
-                  <p className="text-slate-500 dark:text-zinc-400 text-sm">{user?.email}</p>
-                </div>
-              </div>
-
-              <div className="border-t border-card-border pt-4 space-y-3">
-                <Row label={t.settings.username}>
-                  <span className="text-slate-600 dark:text-zinc-300 text-sm bg-slate-200 dark:bg-zinc-800 px-3 py-1.5 rounded-lg">
-                    {user?.username}
-                  </span>
-                </Row>
-
-                <Row label={t.settings.email}>
-                  <span className="text-slate-600 dark:text-zinc-300 text-sm bg-slate-200 dark:bg-zinc-800 px-3 py-1.5 rounded-lg">
-                    {user?.email}
-                  </span>
-                </Row>
-
-                {user?.createdAt && (
-                  <Row label={t.settings.memberSince}>
-                    <span className="text-slate-500 dark:text-zinc-400 text-sm">
-                      {new Date(user.createdAt).toLocaleDateString(language === 'de' ? 'de-DE' : 'en-US', {
-                        year: 'numeric', month: 'long', day: 'numeric',
-                      })}
-                    </span>
-                  </Row>
-                )}
-              </div>
-
-              <div className="pt-2 border-t border-card-border">
-                <motion.button
-                  whileTap={{ scale: 0.97 }}
-                  onClick={logout}
-                  className="flex items-center gap-2 px-5 py-2.5 bg-red-900/20 hover:bg-red-900/40 border border-red-900/30 text-red-400 hover:text-red-300 rounded-xl text-sm font-medium transition-all"
-                >
-                  <LogOut className="w-4 h-4" />
-                  {t.settings.logout}
-                </motion.button>
-              </div>
-            </Section>
           </motion.div>
 
           {/* Preferences */}

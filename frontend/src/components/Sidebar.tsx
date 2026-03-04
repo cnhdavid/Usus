@@ -1,9 +1,10 @@
 import { type ReactElement } from 'react';
+import { LayoutDashboard, BarChart2, Settings, LogOut, Plus, User } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useAuth } from '../context/AuthContext';
 import { usePreferences } from '../context/PreferencesContext';
 
-export type Page = 'dashboard' | 'stats' | 'settings';
+export type Page = 'dashboard' | 'stats' | 'profile' | 'settings';
 
 interface SidebarProps {
   onAddHabit: () => void;
@@ -19,29 +20,22 @@ export const Sidebar = ({ onAddHabit, activePage, onNavigate }: SidebarProps) =>
     {
       id: 'dashboard',
       label: t.nav.dashboard,
-      icon: (
-        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-        </svg>
-      ),
+      icon: <LayoutDashboard className="w-5 h-5" />,
     },
     {
       id: 'stats',
       label: t.nav.statistics,
-      icon: (
-        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-        </svg>
-      ),
+      icon: <BarChart2 className="w-5 h-5" />,
+    },
+    {
+      id: 'profile',
+      label: t.nav.profile,
+      icon: <User className="w-5 h-5" />,
     },
     {
       id: 'settings',
       label: t.nav.settings,
-      icon: (
-        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
-        </svg>
-      ),
+      icon: <Settings className="w-5 h-5" />,
     },
   ];
 
@@ -97,9 +91,7 @@ export const Sidebar = ({ onAddHabit, activePage, onNavigate }: SidebarProps) =>
                 title="Log out"
                 className="p-2 text-slate-400 dark:text-zinc-500 hover:text-red-400 hover:bg-red-900/20 rounded-lg transition-colors shrink-0"
               >
-                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-                </svg>
+                <LogOut className="w-4 h-4" />
               </motion.button>
             </div>
           </div>
@@ -113,9 +105,7 @@ export const Sidebar = ({ onAddHabit, activePage, onNavigate }: SidebarProps) =>
             onClick={() => onNavigate('dashboard')}
             className={`flex flex-col items-center gap-1 ${activePage === 'dashboard' ? 'text-accent-cyan' : 'text-slate-500 dark:text-zinc-400'}`}
           >
-            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-            </svg>
+            <LayoutDashboard className="w-6 h-6" />
             <span className="text-xs font-medium">{t.nav.dashboard}</span>
           </button>
 
@@ -124,9 +114,7 @@ export const Sidebar = ({ onAddHabit, activePage, onNavigate }: SidebarProps) =>
             onClick={() => onNavigate('stats')}
             className={`flex flex-col items-center gap-1 ${activePage === 'stats' ? 'text-accent-cyan' : 'text-slate-500 dark:text-zinc-400'}`}
           >
-            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-            </svg>
+            <BarChart2 className="w-6 h-6" />
             <span className="text-xs font-medium">{t.nav.statistics}</span>
           </button>
 
@@ -136,19 +124,24 @@ export const Sidebar = ({ onAddHabit, activePage, onNavigate }: SidebarProps) =>
             onClick={onAddHabit}
             className="flex items-center justify-center w-14 h-14 -mt-8 bg-accent-cyan rounded-full shadow-glow-cyan"
           >
-            <svg className="w-7 h-7 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M12 4v16m8-8H4" />
-            </svg>
+            <Plus className="w-7 h-7 text-black" strokeWidth={3} />
           </motion.button>
+
+          {/* Profile */}
+          <button
+            onClick={() => onNavigate('profile')}
+            className={`flex flex-col items-center gap-1 ${activePage === 'profile' ? 'text-accent-cyan' : 'text-slate-500 dark:text-zinc-400'}`}
+          >
+            <User className="w-6 h-6" />
+            <span className="text-xs font-medium">{t.nav.profile}</span>
+          </button>
 
           {/* Settings */}
           <button
             onClick={() => onNavigate('settings')}
             className={`flex flex-col items-center gap-1 ${activePage === 'settings' ? 'text-accent-cyan' : 'text-slate-500 dark:text-zinc-400'}`}
           >
-            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
-            </svg>
+            <Settings className="w-6 h-6" />
             <span className="text-xs font-medium">{t.nav.settings}</span>
           </button>
         </div>

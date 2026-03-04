@@ -6,6 +6,7 @@ const translations = {
     nav: {
       dashboard: 'Dashboard',
       statistics: 'Statistics',
+      profile: 'Profile',
       settings: 'Settings',
       newHabit: '+ New Habit',
     },
@@ -93,6 +94,7 @@ const translations = {
     nav: {
       dashboard: 'Dashboard',
       statistics: 'Statistiken',
+      profile: 'Profil',
       settings: 'Einstellungen',
       newHabit: '+ Neue Gewohnheit',
     },

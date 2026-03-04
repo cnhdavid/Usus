@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Dashboard } from './components/Dashboard';
 import { StatsPage } from './components/StatsPage';
 import { SettingsPage } from './components/SettingsPage';
+import { ProfilePage } from './components/ProfilePage';
 import { Sidebar } from './components/Sidebar';
 import { Login } from './components/Login';
 import { Signup } from './components/Signup';
@@ -22,6 +23,12 @@ function AppShell() {
         <>
           <Sidebar onAddHabit={() => setIsAddModalOpen(true)} activePage={page} onNavigate={setPage} />
           <StatsPage />
+        </>
+      )}
+      {page === 'profile' && (
+        <>
+          <Sidebar onAddHabit={() => setIsAddModalOpen(true)} activePage={page} onNavigate={setPage} />
+          <ProfilePage />
         </>
       )}
       {page === 'settings' && (
