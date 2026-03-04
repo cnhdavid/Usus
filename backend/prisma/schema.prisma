@@ -1,0 +1,52 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           Int    @id @default(autoincrement()) @map("Id")
+  username     String @map("Username")
+  email        String @unique @map("Email")
+  passwordHash String @map("PasswordHash")
+  createdAt    String @default(dbgenerated("(strftime('%Y-%m-%dT%H:%M:%S.000Z','now'))")) @map("CreatedAt")
+  habits       Habit[]
+
+  @@map("Users")
+}
+
+model Habit {
+  id          Int        @id @default(autoincrement()) @map("Id")
+  name        String     @map("Name")
+  description String     @default("") @map("Description")
+  frequency   String     @default("Daily") @map("Frequency")
+  targetCount Int        @default(1) @map("TargetCount")
+  targetValue Float?     @map("TargetValue")
+  unit        String?    @map("Unit")
+  category    String?    @map("Category")
+  createdAt   String     @default(dbgenerated("(strftime('%Y-%m-%dT%H:%M:%S.000Z','now'))")) @map("CreatedAt")
+  userId      Int        @map("UserId")
+  user        User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  dailyLogs   DailyLog[]
+
+  @@map("Habits")
+}
+
+model DailyLog {
+  id             Int      @id @default(autoincrement()) @map("Id")
+  date           String   @map("Date")
+  completedCount Int      @default(0) @map("CompletedCount")
+  value          Float?   @map("Value")
+  notes          String?  @map("Notes")
+  createdAt      String   @default(dbgenerated("(strftime('%Y-%m-%dT%H:%M:%S.000Z','now'))")) @map("CreatedAt")
+  habitId        Int      @map("HabitId")
+  habit          Habit    @relation(fields: [habitId], references: [id], onDelete: Cascade)
+
+  @@map("DailyLogs")
+}

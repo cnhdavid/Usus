@@ -5,6 +5,10 @@ services:
       - "5112:5112"
     volumes:
       - sqlite-data:/app/data
+    environment:
+      - DATABASE_URL=file:/app/data/usus_dev.db
+      - SESSION_SECRET=usus-super-secret-change-in-prod
+      - PORT=5112
     restart: unless-stopped
 
   frontend:

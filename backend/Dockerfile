@@ -1,21 +1,21 @@
-FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
+FROM node:22-alpine AS builder
 WORKDIR /app
-
-COPY *.csproj .
-RUN dotnet restore
-
+# Build tools needed for native modules
+RUN apk add --no-cache python3 make g++ openssl
+COPY package*.json ./
+RUN npm ci
+COPY prisma ./prisma
+RUN npx prisma generate
 COPY . .
-RUN dotnet publish -c Release -o /out
+RUN npm run build
 
-FROM mcr.microsoft.com/dotnet/aspnet:10.0
+FROM node:22-alpine
 WORKDIR /app
-COPY --from=build /out .
-
-RUN mkdir -p /app/data
-
-ENV ASPNETCORE_URLS=http://+:5112
-ENV ASPNETCORE_ENVIRONMENT=Development
-
+RUN apk add --no-cache openssl
+COPY package*.json ./
+RUN npm ci --omit=dev
+COPY prisma ./prisma
+RUN npx prisma generate
+COPY --from=builder /app/dist ./dist
 EXPOSE 5112
-
-ENTRYPOINT ["dotnet", "HabitTracker.API.dll"]
+CMD ["node", "dist/main.js"]
